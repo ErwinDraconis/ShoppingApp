@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="row">
+
+        <!-- product filter-->
+        <section class="col-3">
+
+            <h5 class="text-warning"> Sort</h5>
+            <select class="custom-select mb-3" (change)="onSortSelected($event.target.value)">
+                <option *ngFor="let sort of sortOptions"
+                [value]="sort.value">
+                    {{sort.name}}
+                </option>
+            </select>
+            
+            <h5 class="text-warning"> Brands</h5>
+            <ul class="list-group my-3" >
+                <li class="list-group-item" 
+                *ngFor="let brand of brands"
+                [class.active]="brand.id === this.shopParam.branId"
+                [value]="brand.id"
+                (click)="onBrandSelected(brand.id)">
+                    {{brand.name}}
+                </li>
+                
+              </ul>
+
+            <h5 class="text-warning"> types</h5>
+            <ul class="list-group my-2">
+                <li class="list-group-item" *ngFor="let type of types"
+                [class.active]="type.id === this.shopParam.typeId"
+                (click)="onTypeSelected(type.id)"
+                [value]="type.id">
+                    {{type.name}}
+                </li>
+              </ul>
+
+        </section>
+
+        <!-- cards for showing the products-->
+        <section class="col-9">
+            <div class="d-flex justify-content-between align-items-center pb-2">
+
+                <header>
+                    <span *ngIf="this.totalItem && this.totalItem > 0">Showing 
+                        <strong>
+                            {{(this.shopParam.pageNumber -1) * this.shopParam.pageSize + 1}} - 
+                            {{this.shopParam.pageNumber * this.shopParam.pageSize 
+                            > this.totalItem
+                            ? this.totalItem
+                            : this.shopParam.pageNumber * this.shopParam.pageSize
+                            }}
+                        </strong> out of 
+                        <strong>
+                            {{this.totalItem}}
+                        </strong
+                    ></span>
+
+                    <span *ngIf="this.totalItem === 0"> there is no result to show</span>
+                </header>
+
+                <div class="form-inline mt-2">
+                    <input class="form-control" style="width: 300px;" type="text" placeholder="Search">
+                    <button class="btn btn-outline-primary">Go</button>
+                    <button class="btn btn-outline-success">Reset</button>
+                </div>
+                
+            </div>
+            
+            <div class="row">
+                <div class="col-4 mb-4" *ngFor="let item of products">
+                    <app-product-item [product]="item"></app-product-item>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center" 
+                *ngIf="this.totalItem && this.totalItem > 0" >
+                <pagination 
+                [boundaryLinks]="true" 
+                [totalItems]="this.totalItem"
+                (pageChanged)="this.onPageChanged($event)"
+                [itemsPerPage]="this.shopParam.pageSize"
+                previousText="&lsaquo;" 
+                nextText="&rsaquo;" 
+                firstText="&laquo;" 
+                lastText="&raquo;">
+         
+                </pagination>
+            </div>
+        </section>
+
+    </div>
+</div>
