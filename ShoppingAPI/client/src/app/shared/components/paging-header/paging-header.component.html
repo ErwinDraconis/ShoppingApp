@@ -1,0 +1,17 @@
+<header>
+    <span *ngIf="totalItem && totalItem > 0">Showing 
+        <strong>
+            {{(pageNumber -1) * pageSize + 1}} - 
+            {{pageNumber * pageSize 
+            > this.totalItem
+            ? this.totalItem
+            : pageNumber * pageSize
+            }}
+        </strong> out of 
+        <strong>
+            {{this.totalItem}}
+        </strong
+    ></span>
+
+    <span *ngIf="this.totalItem === 0"> there is no result to show</span>
+</header>
