@@ -19,18 +19,19 @@ export class ShopService {
 
     let params = new HttpParams();
 
-    if(shopParam.branId !== 0)
-    {
+    if(shopParam.branId !== 0){
       params = params.append('brandId',shopParam.branId.toString());
     }
       
 
-    if(shopParam.typeId !== 0)
-    {
+    if(shopParam.typeId !== 0){
       params = params.append('typeId',shopParam.typeId.toString());
     }
       
-    
+    if(shopParam.search){
+      params = params.append('search',shopParam.search);
+    }
+
     params = params.append('sort',shopParam.sort);
     params = params.append('pageIndex',shopParam.pageNumber.toString());
     params = params.append('PageSize',shopParam.pageSize.toString());
